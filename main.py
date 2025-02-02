@@ -48,6 +48,16 @@ def main():
         pygame.display.flip() # used to refresh screen state
         # ---------------
 
+        # -- End Game State --
+        # Choosing to include this after the draw call, instead of the
+        # game state update, so as to better visually adhere to the
+        # cause of the end game
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game over!")
+                return
+        # --------------------
+
         # We want to pause the gameloop every 1/60 of a second, so as
         # to not be rate limited by the CPU's speed.
         # This time passed should then be saved as the delta (i.e.,
