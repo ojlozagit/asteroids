@@ -2,7 +2,9 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+
 from constants import *
+from player import *
 
 def main():
     print("Starting asteroids!")
@@ -13,8 +15,8 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     
-    # returns a pygame.surface.Surface object
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # -> pygame.surface.Surface()
+    player = Player( SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
     while True: # gameLoop
         # we want to allow the user to exit the screen/gameLoop via the x-button
@@ -23,6 +25,7 @@ def main():
                 return
             
         screen.fill("black") # "black" is the equivalent to passing the (0,0,0) rgb tuple
+        player.draw(screen)
         pygame.display.flip() # we want to refresh the screen at the end of the gameLoop
         dt = clock.tick(60) / 1000 # we want to pause the gameloop every 1/60 of a second, so as
                                    # to not be rate limited by the CPU's speed.
