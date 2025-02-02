@@ -10,6 +10,8 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     pygame.init()
+    clock = pygame.time.Clock()
+    dt = 0
     
     # returns a pygame.surface.Surface object
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -20,8 +22,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        screen.fill((0,0,0))
+        screen.fill("black") # "black" is the equivalent to passing the (0,0,0) rgb tuple
         pygame.display.flip() # we want to refresh the screen at the end of the gameLoop
+        dt = clock.tick(60) / 1000 # we want to pause the gameloop every 1/60 of a second, so as
+                                   # to not be rate limited by the CPU's speed.
+                                   # This time passed should then be saved as the delta (i.e.,
+                                   # time passed since last frame/drawcall)
 
 if __name__ == "__main__":
     main()
