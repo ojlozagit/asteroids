@@ -27,7 +27,7 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             if (self.shot_timer <= 0.0
                     or self.shot_timer > PLAYER_SHOOT_COOLDOWN ):
-                self.shoot(dt)
+                self.shoot()
                 self.shot_timer = PLAYER_SHOOT_COOLDOWN
 
     def triangle(self):
@@ -47,8 +47,7 @@ class Player(CircleShape):
         displacement = PLAYER_SPEED * dt
         self.position += forward * displacement
 
-    def shoot(self, dt):
+    def shoot(self):
         shot = Shot(self.position.x, self.position.y)
         shot_dir = pygame.Vector2(0, 1).rotate(self.rotation)
         shot.velocity = shot_dir * PLAYER_SHOOT_SPEED
-        shot.update(dt)
