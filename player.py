@@ -5,7 +5,8 @@ from shot        import Shot
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0
+        self.rotation   = 0
+        self.shot_timer = 0
 
     def draw(self, screen):
         return pygame.draw.polygon(screen, "white", self.triangle(), 2)
@@ -21,8 +22,13 @@ class Player(CircleShape):
             self.move(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+
+        self.shot_timer -= dt
         if keys[pygame.K_SPACE]:
-            self.shoot(dt)
+            if (self.shot_timer <= 0.0
+                    or self.shot_timer > PLAYER_SHOOT_COOLDOWN ):
+                self.shoot(dt)
+                self.shot_timer = PLAYER_SHOOT_COOLDOWN
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
