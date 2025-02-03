@@ -4,9 +4,10 @@
 import pygame
 
 from constants      import *
-from player         import *
-from asteroid       import *
-from asteroidfield  import *
+from player         import Player
+from shot           import Shot
+from asteroid       import Asteroid
+from asteroidfield  import AsteroidField
 
 def main():
     print("Starting asteroids!")
@@ -19,11 +20,13 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    updatable = pygame.sprite.Group()
-    drawable  = pygame.sprite.Group()
-    asteroids = pygame.sprite.Group()
+    updatable   = pygame.sprite.Group()
+    drawable    = pygame.sprite.Group()
+    asteroids   = pygame.sprite.Group()
+    projectiles = pygame.sprite.Group()
 
     Player.containers        = (updatable, drawable)
+    Shot.containers          = (updatable, drawable, projectiles)
     Asteroid.containers      = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
 
@@ -37,6 +40,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+
         updatable.update(dt)
         # --------------------
 
