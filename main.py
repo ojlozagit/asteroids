@@ -60,6 +60,10 @@ def main():
             if player.collides_with(asteroid):
                 print("Game over!")
                 return
+            for shot in projectiles:
+                if shot.collides_with(asteroid):
+                    asteroid.kill()
+                    shot.kill()
         # --------------------
 
         # We want to pause the gameloop every 1/60 of a second, so as
